@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import './App.css';
-
+import logo from './logo.png';
 const portfolioData ={
   name : "Somnath Das",
   title : "Full Stack Developer",
@@ -27,8 +27,8 @@ the developer community.`,
       tech: 'Python, TensorFlow/Keras, OpenCV, Django, NumPy, Matplotlib',
       description: 'A machine learning system that detects apple leaf diseases with 93% accuracy across three disease categories, enabling early diagnosis to reduce crop loss by up to 30%.',
       features: ['Custom CNN architecture', 'Image preprocessing and augmentation (32,000+ images)', 'Interactive Django web interface for real-time diagnosis', 'Farmer-friendly image upload and instant analysis'],
-      github: 'https://github.com/dassomnath99/custom-cnn-for-plant-disease-detection',
-      demo: 'Working On it'
+      github: 'https://github.com/dassomnath99/Plant-Disease-Detection',
+      demo: 'Future Deployment'
     },
     {
       id: 2,
@@ -41,13 +41,19 @@ the developer community.`,
     },
     {
       id: 3,
-      name: 'E-Commerce REST API',
-      tech: 'Python, Django, Django REST Framework, djangorestframework-simplejwt, PostgreSQL',
-      description: 'A secure and scalable RESTful API for an e-commerce platform, featuring product catalog management, user reviews, and JWT-based authentication.',
-      features: ['Product and Category models with relational structure', 'Review system with user-submitted ratings', 'Endpoints: GET /products, POST /reviews, and search/filter by category, price, and name', 'JWT authentication for protected user actions using djangorestframework-simplejwt'],
-      github: 'https://github.com/dassomnath99/Ecommerce-API',
-      demo: 'Working On it'
-    }
+      name: "Chat + Social App",
+      tech: ["Django 4.x, Django Channels, WebSockets, Redis"
+      ],
+      description: "A full-stack real-time social media platform combining traditional social networking features with instant messaging capabilities.",
+      features: [
+        "Real-time WebSocket chat with typing indicators, read receipts, and online status tracking",
+        "Social networking with follow system, personalized news feeds, and post interactions (likes/comments)",
+        "File and image sharing in both posts and chat conversations with persistent message history",
+        "JWT-based authentication with custom user profiles and responsive mobile-first design"
+      ],
+      github: "https://github.com/dassomnath99/Social-WebApp",
+      demo: "Future Deployment"
+    },
   ],
   experience: [
     {
