@@ -1,20 +1,20 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import './App.css';
 import logo from './logo.png';
-const portfolioData ={
-  name : "Somnath Das",
-  title : "Full Stack Developer",
-  about : `Hi! I'm Somnath Das
+const portfolioData = {
+  name: "Somnath Das",
+  title: "Full Stack Developer",
+  about: `Hi! I'm Somnath Das
 
-I'm a passionate Full Stack Developer with expertise in building 
-modern web applications. I love creating elegant solutions to 
-complex problems and am constantly learning new technologies.
+  I'm a passionate Full Stack Developer with expertise in building 
+  modern web applications. I love creating elegant solutions to 
+  complex problems and am constantly learning new technologies.
 
-When I'm not coding, you can find me exploring new technologies, or sharing knowledge with 
-the developer community.`,
+  When I'm not coding, you can find me exploring new technologies, or sharing knowledge with 
+  the developer community.`,
   skills: {
-    'Language' : ['Python','C/C++'],
-    'Framework':['Numpy','Pandas','Matplotlib','Scikit-Learn','Tensorflow'], 
+    'Language': ['Python', 'C/C++'],
+    'Framework': ['Numpy', 'Pandas', 'Matplotlib', 'Scikit-Learn', 'Tensorflow'],
     'Frontend': ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind CSS'],
     'Backend': ['Django', 'Django REST APIs'],
     'Database': ['MySQL', 'SQLite', 'Redis'],
@@ -60,7 +60,8 @@ the developer community.`,
       title: 'Python Developer Intern',
       company: 'Siance Software Pvt. Ltd.',
       period: 'Feb 2025 – May 2025',
-      description: 'Designed and developed a responsive {temple management website}[https://suryasena.com/] using Django, featuring a real-time event booking system, secure payment gateway for donations, and dynamic gallery management. Independently handled full-stack development, delivered the project 15% ahead of schedule, and optimized database queries with caching to improve page load times by 40%.'
+      description: 'Designed and developed a responsive temple management website using Django, featuring a real-time event booking system, secure payment gateway for donations, and dynamic gallery management. Independently handled full-stack development, delivered the project 15% ahead of schedule, and optimized database queries with caching to improve page load times by 40%.',
+      link: 'https://suryasena.com/'
     }
   ],
   education: [
@@ -81,7 +82,7 @@ the developer community.`,
     location: 'Kolkata, India'
   }
 };
-export default function TerminalPortfolio(){
+export default function TerminalPortfolio() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState([]);
   const [history, setHistory] = useState([]);
@@ -104,9 +105,9 @@ export default function TerminalPortfolio(){
     `
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     setOutput([welcomeMessage]);
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (outputRef.current) {
@@ -120,9 +121,9 @@ export default function TerminalPortfolio(){
 
   const processCommand = (cmd) => {
     const command = cmd.trim().toLowerCase();
-    
+
     setOutput(prev => [...prev, { type: 'command', content: cmd }]);
-    
+
     setHistory(prev => [cmd, ...prev]);
     setHistoryIndex(-1);
 
@@ -167,8 +168,8 @@ export default function TerminalPortfolio(){
         return { type: 'skills', content: portfolioData.skills };
 
       case 'projects':
-        return { 
-          type: 'projects', 
+        return {
+          type: 'projects',
           content: portfolioData.projects.map(p => ({
             id: p.id,
             name: p.name,
@@ -183,9 +184,9 @@ export default function TerminalPortfolio(){
         if (project) {
           return { type: 'project_detail', content: project };
         } else {
-          return { 
-            type: 'error', 
-            content: `Project '${args[1]}' not found. Use 'projects' to see available projects.` 
+          return {
+            type: 'error',
+            content: `Project '${args[1]}' not found. Use 'projects' to see available projects.`
           };
         }
 
@@ -196,12 +197,13 @@ export default function TerminalPortfolio(){
         return { type: 'education', content: portfolioData.education };
 
       case 'contact':
-        return { type: 'contact', content: portfolioData.contact };
+        return { type: 'contact', content: { email: portfolioData.contact.email, location: portfolioData.contact.location } };
 
       case 'resume':
-        return { 
-          type: 'success', 
-          content: '📄 Resume download started... (Link: https://example.com/resume.pdf)' 
+        window.open('https://drive.google.com/file/d/1_nrlxSPxufRQl9bD_IbuynwvOPFMiNyW/view?usp=sharing', '_blank');
+        return {
+          type: 'success',
+          content: '📄 Resume link opened in a new tab.'
         };
 
       case 'social':
@@ -210,26 +212,28 @@ export default function TerminalPortfolio(){
           content: {
             github: portfolioData.contact.github,
             linkedin: portfolioData.contact.linkedin,
-            twitter: portfolioData.contact.twitter
+            leetcode: portfolioData.contact.leetcode,
+            hackerrank: portfolioData.contact.hackerrank,
+            kaggle: portfolioData.contact.kaggle,
           }
         };
 
       case 'whoami':
-        return { 
-          type: 'info', 
-          content: `${portfolioData.name} - ${portfolioData.title}` 
+        return {
+          type: 'info',
+          content: `${portfolioData.name} - ${portfolioData.title}`
         };
 
       case 'date':
-        return { 
-          type: 'info', 
-          content: new Date().toString() 
+        return {
+          type: 'info',
+          content: new Date().toString()
         };
 
       case 'echo':
-        return { 
-          type: 'info', 
-          content: args.slice(1).join(' ') || '' 
+        return {
+          type: 'info',
+          content: args.slice(1).join(' ') || ''
         };
 
       case '':
@@ -358,10 +362,26 @@ export default function TerminalPortfolio(){
             </ul>
             <div className="text-gray-400 pl-2 border-l-2 border-green-900 pl-4">
               <div className="mb-1">
-                <span className="text-green-300">🔗 GitHub:</span> <span className="text-blue-400 underline">{item.content.github}</span>
+                <span className="text-green-300 cursor-pointer">🔗 GitHub:</span>{' '}
+                <a
+                  href={item.content.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline"
+                >
+                  {item.content.github}
+                </a>
               </div>
               <div>
-                <span className="text-green-300">🌐 Demo:</span> <span className="text-blue-400 underline">{item.content.demo}</span>
+                <span className="text-green-300">🌐 Demo:</span>{' '}
+                <a
+                  href={item.content.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline"
+                >
+                  {item.content.demo}
+                </a>
               </div>
             </div>
           </div>
@@ -376,6 +396,17 @@ export default function TerminalPortfolio(){
                 <div className="text-yellow-300 font-medium">{exp.title}</div>
                 <div className="text-purple-300 text-sm mt-1">{exp.company} • {exp.period}</div>
                 <div className="text-gray-300 text-sm mt-2 leading-relaxed">{exp.description}</div>
+                <div className="text-gray-400 text-sm mt-2 leading-relaxed">
+                  <span className="text-purple-300">🔗 Link:</span>{' '}
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 underline"
+                  >
+                    {exp.link}
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -409,15 +440,6 @@ export default function TerminalPortfolio(){
                 <span className="mr-2">📧</span> Email: <span className="text-yellow-300 ml-2">{item.content.email}</span>
               </div>
               <div className="text-gray-300 flex items-center">
-                <span className="mr-2">🐙</span> GitHub: <span className="text-yellow-300 ml-2">{item.content.github}</span>
-              </div>
-              <div className="text-gray-300 flex items-center">
-                <span className="mr-2">💼</span> LinkedIn: <span className="text-yellow-300 ml-2">{item.content.linkedin}</span>
-              </div>
-              <div className="text-gray-300 flex items-center">
-                <span className="mr-2">🐦</span> Twitter: <span className="text-yellow-300 ml-2">{item.content.twitter}</span>
-              </div>
-              <div className="text-gray-300 flex items-center">
                 <span className="mr-2">📍</span> Location: <span className="text-yellow-300 ml-2">{item.content.location}</span>
               </div>
             </div>
@@ -429,9 +451,65 @@ export default function TerminalPortfolio(){
           <div key={index} className="mb-4 animate-fade-in">
             <div className="text-cyan-300 mb-3 font-semibold">Social Media</div>
             <div className="pl-2 space-y-2">
-              <div className="text-gray-300">🐙 GitHub: <span className="text-blue-400 underline">{item.content.github}</span></div>
-              <div className="text-gray-300">💼 LinkedIn: <span className="text-blue-400 underline">{item.content.linkedin}</span></div>
-              <div className="text-gray-300">🐦 Twitter: <span className="text-blue-400 underline">{item.content.twitter}</span></div>
+              <div className="text-gray-300">
+                🐙 GitHub:{" "}
+                <a
+                  href={item.content.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline hover:text-blue-300"
+                >
+                  {item.content.github}
+                </a>
+              </div>
+
+              <div className="text-gray-300">
+                💼 LinkedIn:{" "}
+                <a
+                  href={item.content.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline hover:text-blue-300"
+                >
+                  {item.content.linkedin}
+                </a>
+              </div>
+
+              <div className="text-gray-300">
+                🧩 LeetCode:{" "}
+                <a
+                  href={item.content.leetcode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline hover:text-blue-300"
+                >
+                  {item.content.leetcode}
+                </a>
+              </div>
+
+              <div className="text-gray-300">
+                🏆 HackerRank:{" "}
+                <a
+                  href={item.content.hackerrank}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline hover:text-blue-300"
+                >
+                  {item.content.hackerrank}
+                </a>
+              </div>
+
+              <div className="text-gray-300">
+                📊 Kaggle:{" "}
+                <a
+                  href={item.content.kaggle}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 underline hover:text-blue-300"
+                >
+                  {item.content.kaggle}
+                </a>
+              </div>
             </div>
           </div>
         );
@@ -530,7 +608,7 @@ export default function TerminalPortfolio(){
         </div>
 
         <div className="p-6 h-[calc(100%-60px)] flex flex-col">
-          <div 
+          <div
             ref={outputRef}
             className="terminal-output flex-1 overflow-y-auto mb-4 text-sm"
             onClick={() => inputRef.current?.focus()}
